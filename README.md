@@ -46,6 +46,22 @@ The [Lenovo platform specification](https://psrefstuff.lenovo.com/syspool/Sys/PD
 
 These are results from the tested configuration, not guarantees for every device with the same model name.
 
+## Included fixes and configuration
+
+The EFI includes the final battery, native Wi-Fi, audio and HDMI configuration. These changes combine existing upstream/fork drivers with hardware-specific OpenCore settings; this repository does not claim to author replacement drivers.
+
+| Area | Previous issue | Included solution |
+|---|---|---|
+| Internal boot | USB boot was required | OpenCore 1.0.8 and the internal-disk fallback bootstrap layout |
+| Battery | Battery reporting and battery-only boot could stall | ECEnabler RELEASE 1.0.6 + SMCBatteryManager RELEASE 1.3.8 |
+| Native Wi-Fi | Legacy HeliPort workflow lacked the required native integration | AirportItlwm Tahoe 2.4.0, laobamac commit `7204c69`; legacy itlwm disabled |
+| Audio | Internal speaker output was unavailable | AppleALC 1.9.8 + SimpleHDA 1.0.1, layout ID 21 |
+| Bluetooth | Controller initially switched off after activation | IntelBluetoothFirmware + IntelBTPatcher + BlueToolFixup; historical daemon crashes remain a limitation |
+| HDMI detection | External monitor was not detected | HDMI connector con2 with bus ID 2 |
+| HDMI sleep/wake | Display required cable reconnection after wake | Force-online restricted to framebuffer 2 |
+
+See [Fixes and provenance](docs/FIXES.md) for exact config paths, source links, evidence boundaries, and settings that are **not** contained in an EFI folder. Existing brightness ACPI patches are documented separately from the fixes above.
+
 ## Known limitations
 
 | Area | Status |
@@ -77,6 +93,7 @@ EFI/
 docs/
 ├── INSTALLATION.md
 ├── CONFIGURATION.md
+├── FIXES.md
 ├── KEXTS.md
 ├── DRIVERS-ACPI.md
 ├── COMPATIBILITY.md
@@ -91,7 +108,7 @@ SHA256SUMS.txt
 
 1. Compare your hardware with the table above and back up your existing EFI.
 2. Read [Installation](docs/INSTALLATION.md), including SMBIOS preparation and recovery requirements.
-3. Review the [configuration notes](docs/CONFIGURATION.md), [kext inventory](docs/KEXTS.md), and [UEFI drivers / ACPI tables](docs/DRIVERS-ACPI.md).
+3. Review the [fixes and provenance](docs/FIXES.md), [configuration notes](docs/CONFIGURATION.md), [kext inventory](docs/KEXTS.md), and [UEFI drivers / ACPI tables](docs/DRIVERS-ACPI.md).
 4. Validate your edited config with **ocvalidate 1.0.8** before testing from recovery media.
 
 This is an EFI-folder package, not a macOS installer, ISO, or full-disk image. Existing Windows boot files are not included or managed.

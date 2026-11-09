@@ -1,0 +1,8 @@
+* text=auto
+*.md text eol=lf
+*.py text eol=lf
+*.json text eol=lf
+*.plist -text
+*.efi -text
+*.aml -text
+**/Contents/MacOS/* -text

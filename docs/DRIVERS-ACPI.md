@@ -25,3 +25,14 @@ All three entries in UEFI/Drivers are enabled. Individual driver versions are no
 The supplied AML files are retained byte-for-byte. Their original DSL and compiler provenance have not been independently established; the role descriptions are not a fresh decompilation audit. The config also retains two ACPI patch entries. [Dortania's ACPI guide](https://dortania.github.io/Getting-Started-With-ACPI/) explains the concepts but is not asserted to be the source of these exact binaries.
 
 UTBMap is a hardware-specific USB map, not a UEFI driver. It contains 10 mapped XHC ports; adapting to a different board requires checking the physical ports.
+
+## Enabled ACPI byte patches
+
+These entries are read from `ACPI/Patch` in the supplied config. Hex strings describe the stored byte patterns.
+
+| Config comment | Scope | Find → Replace | Count |
+|---|---|---|---|
+| PNLF to XNLF Rename | DSDT | `504e4c46` → `584e4c46` | 0 (all matching occurrences within the configured scope) |
+| NBCF 0x00 to 0x01 for BrightnessKeys.kext | DSDT | `084e4243460a00` → `084e4243460a01` | 1 |
+
+Both patches are enabled. The PNLF rename corresponds to backlight namespace handling; the NBCF entry is labeled for BrightnessKeys compatibility in the config. Neither is an EC `_Q24` battery patch. This distribution does not claim a new DSDT source patch or a newly verified brightness fix.

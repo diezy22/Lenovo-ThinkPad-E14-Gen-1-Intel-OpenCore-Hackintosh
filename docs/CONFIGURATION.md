@@ -1,5 +1,7 @@
 # Configuration notes
 
+See [Fixes and provenance](FIXES.md) for the problem addressed by each included change and the distinction between config settings and upstream driver code.
+
 ## Baseline
 
 - OpenCore 1.0.8; tested OS: macOS Tahoe 26.7.2 (25G332).

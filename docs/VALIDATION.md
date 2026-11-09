@@ -10,3 +10,9 @@
 Versions and enabled states are derived from the frozen config and Info.plist files. Previous successful hardware tests establish the documented baseline; checksums alone do not prove hardware compatibility. The public template must be populated with private identifiers before use.
 
 Use `python3 scripts/verify.py` to verify unchanged distributed files. Intentional edits, including filling in identifiers, change the relevant checksum.
+
+## Documentation maintenance
+
+The fixes/provenance explanation and ACPI byte-patch table describe the existing config. Documentation maintenance preserves the 59 functional EFI files byte-for-byte. Finder metadata files are excluded; they are not boot components.
+
+The checksum manifest covers distributable files, including documentation and repository settings, and excludes `.git/`, `.DS_Store`, temporary Python caches and the manifest itself. Regenerate it when intentionally changing distributed files. A public documentation commit does not imply a new live boot test.
